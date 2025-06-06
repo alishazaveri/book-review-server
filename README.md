@@ -30,7 +30,7 @@ A RESTful API for managing book reviews, built with Node.js, Express, and MongoD
 Create a `.env` file in the root directory with the following variables:
 
 ```env
-PORT=3000
+PORT=8000
 MONGODB_URI=mongodb://localhost:27017/book-review
 JWT_SECRET=your_jwt_secret_key
 ```
@@ -53,7 +53,87 @@ npm install
 npm start
 ```
 
-The server will start running on `http://localhost:3000`
+The server will start running on `http://localhost:8000`
+
+## API Documentation
+
+### Authentication
+
+#### Register User
+```bash
+curl -X POST http://localhost:8000/api/user/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "testname",
+    "emailId": "test.name@mail.com",
+    "password": "password"
+  }'
+```
+
+#### Login
+```bash
+curl -X POST http://localhost:8000/api/user/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "emailId": "test.name@mail.com",
+    "password": "password"
+  }'
+```
+
+### Books
+
+#### Create Book
+```bash
+curl -X POST http://localhost:8000/api/book/create \
+  -H "Content-Type: application/json" \
+  -d '{
+    "ISBN": "2",
+    "title": "Book 2",
+    "author": "Test 2",
+    "genre": "Thriller"
+  }'
+```
+
+#### Get All Books
+```bash
+curl -X GET "http://localhost:8000/api/book"
+```
+
+#### Get Book by ID with Reviews
+```bash
+curl -X GET "http://localhost:8000/api/book/:id?pageLimit=5&pageNumber=1"
+```
+
+### Reviews
+
+#### Create Review
+```bash
+curl -X POST http://localhost:8000/api/review/create/:bookId \
+  -H "Content-Type: application/json" \
+  -d '{
+    "review_text": "Not Good",
+    "rating": "1"
+  }'
+```
+
+#### Get All Reviews by User ID
+```bash
+curl -X GET http://localhost:8000/api/review/userId
+```
+
+#### Get All Reviews by Book ID
+```bash
+curl -X GET http://localhost:8000/api/review/:bookId
+```
+
+#### Update Review
+```bash
+curl -X PUT http://localhost:8000/api/review/:reviewId \
+  -H "Content-Type: application/json" \
+  -d '{
+    "review_text": "Updated Review"
+  }'
+```
 
 ## 📊 Database Schema
 
