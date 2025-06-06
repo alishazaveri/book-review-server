@@ -55,9 +55,6 @@ npm start
 
 The server will start running on `http://localhost:3000`
 
-## API Documentation
-
-
 ## 📊 Database Schema
 
 ### User
